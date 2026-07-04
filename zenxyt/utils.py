@@ -1,0 +1,65 @@
+import json
+import re
+
+def _sanitise_json_string(raw: str) -> str:
+    """
+    Fix common AI JSON mistakes:
+    - Literal backslash-n (\n) inside string values that are not valid escapes
+    - Stray control characters
+    """
+    VALID_ESCAPES = set('"\\bfnrtu')
+    out, i, in_str = [], 0, False
+    while i < len(raw):
+        ch = raw[i]
+        if ch == '"'  and (i == 0 or raw[i-1] != '\\'):
+            in_str = not in_str
+            out.append(ch)
+        elif in_str and ch == '\\' and i + 1 < len(raw):
+            nxt = raw[i + 1]
+            if nxt in VALID_ESCAPES:
+                out.append(ch)          # keep valid escape
+            else:
+                out.append(' ')        # replace bad backslash with space
+                i += 1
+        else:
+            out.append(ch)
+        i += 1
+    return ''.join(out)
+
+def extract_json(text: str) -> dict:
+    """
+    Robustly extract the first complete JSON object from raw AI output.
+    """
+    text = text.replace("```json", "").replace("```", "").strip()
+
+    start = text.rfind('{')          
+    if start == -1:
+        start = text.find('{')
+    if start == -1:
+        raise ValueError(f"No JSON object found in AI response.\nRaw (first 300 chars):\n{text[:300]}")
+
+    depth = end_idx = 0
+    for i, ch in enumerate(text[start:], start):
+        if   ch == '{': depth += 1
+        elif ch == '}': depth -= 1
+        if depth == 0:
+            end_idx = i + 1
+            break
+
+    if not end_idx:
+        raise ValueError("Unbalanced braces in AI response.")
+
+    candidate = text[start:end_idx]
+    candidate = _sanitise_json_string(candidate)
+
+    try:
+        return json.loads(candidate)
+    except json.JSONDecodeError as e:
+        candidate2 = re.sub(r'(?<!\\)\n', ' ', candidate)
+        try:
+            return json.loads(candidate2)
+        except json.JSONDecodeError:
+            raise ValueError(
+                f"JSON parse failed: {e}\n"
+                f"Sanitised candidate (first 400 chars):\n{candidate[:400]}"
+            )
