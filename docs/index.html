@@ -143,11 +143,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     
     <script>
+        // Scroll-Linked 3D Terminal Rotation
+        const visual3d = document.querySelector('.hero-3d-visual');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            // Calculate dynamic rotation and scale
+            const rotateY = -15 + (scrolled * 0.15); // Spins as you scroll
+            const rotateX = 10 + (scrolled * 0.02);
+            const scale = 1 + (scrolled * 0.0005);
+            
+            // Only apply if it's visible (opacity is handled by intersection observer)
+            if (visual3d.classList.contains('visible')) {
+                visual3d.style.transform = `translateX(0) rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(${scale})`;
+            }
+        });
+
         // Scroll Reveal Animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    // Reset transform to let the scroll listener take over smoothly
+                    if (entry.target.classList.contains('hero-3d-visual')) {
+                        entry.target.style.transform = 'translateX(0) rotateY(-15deg) rotateX(10deg) scale(1)';
+                    }
                 }
             });
         }, { threshold: 0.1 });
