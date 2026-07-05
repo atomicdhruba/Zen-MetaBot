@@ -86,6 +86,27 @@ class ZenMetaBotApp(ctk.CTk):
         self.build_debate_tab()
         
         self.show_dashboard()
+        
+        # Spinner Animation
+        self.spinner_frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
+        self.spinner_idx = 0
+        self.animate_spinners()
+
+    def animate_spinners(self):
+        self.spinner_idx = (self.spinner_idx + 1) % len(self.spinner_frames)
+        frame = self.spinner_frames[self.spinner_idx]
+        
+        if hasattr(self, "card_labels"):
+            for v_id, lbl_dict in self.card_labels.items():
+                lbl_info = lbl_dict["info"]
+                text = lbl_info.cget("text")
+                if "Pending" in text:
+                    # The text is "ID: ... • Short • 30s • ⏳ Pending"
+                    parts = text.rsplit("•", 1)
+                    if len(parts) == 2:
+                        lbl_info.configure(text=f"{parts[0]}•  {frame} Pending")
+        
+        self.after(100, self.animate_spinners)
 
     def select_frame_by_name(self, name):
         self.btn_nav_dash.configure(fg_color=("gray75", "gray25") if name == "dash" else "transparent")
@@ -188,6 +209,17 @@ class ZenMetaBotApp(ctk.CTk):
         self.btn_start.pack(side="left", padx=10)
         self.btn_stop = ctk.CTkButton(top_bar, text="⏹ Stop", command=self.stop_processing, fg_color=self.C_RED, hover_color="#D50000", font=ctk.CTkFont(weight="bold"), state="disabled")
         self.btn_stop.pack(side="left", padx=10)
+        
+        # Fake press effect helper
+        def add_press_effect(btn):
+            orig_color = btn.cget("fg_color")
+            def on_press(e): btn.configure(fg_color="#000000")
+            def on_release(e): btn.configure(fg_color=orig_color)
+            btn.bind("<Button-1>", on_press)
+            btn.bind("<ButtonRelease-1>", on_release)
+            
+        add_press_effect(self.btn_start)
+        add_press_effect(self.btn_stop)
         
         self.lbl_status = ctk.CTkLabel(top_bar, text="Status: Idle", font=ctk.CTkFont(size=13, slant="italic"), text_color=self.C_ACCENT)
         self.lbl_status.pack(side="right", padx=10)
@@ -349,6 +381,10 @@ class ZenMetaBotApp(ctk.CTk):
             return
         self.is_running = True
         self.stop_requested = False
+        
+        self.prog_bar.configure(mode="indeterminate")
+        self.prog_bar.start()
+        
         self.btn_start.configure(state="disabled")
         self.btn_stop.configure(state="normal")
         self.lbl_status.configure(text="Status: Processing...")
@@ -403,6 +439,10 @@ class ZenMetaBotApp(ctk.CTk):
                 self.log_debate(f"  [Waiting {CFG.INTER_VIDEO_S}s for rate limits...]")
                 time.sleep(CFG.INTER_VIDEO_S)
                 
+        self.prog_bar.stop()
+        self.prog_bar.configure(mode="determinate")
+        self.prog_bar.set(1.0)
+        
         self.is_running = False
         self.btn_start.configure(state="normal")
         self.btn_stop.configure(state="disabled")
