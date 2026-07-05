@@ -17,7 +17,8 @@ def process_single_video(
     index: int, 
     total: int, 
     skip_done: bool, 
-    gui_callback: Optional[Callable] = None
+    gui_callback: Optional[Callable] = None,
+    review_callback: Optional[Callable] = None
 ) -> bool:
     
     def notify(msg):
@@ -75,11 +76,20 @@ def process_single_video(
             video.seo_score = score
             notify(f"  🏆 Score: {score.get('total_score', '?')}/100")
 
-            # 5. Update YouTube
+            # 5. Manual Review (if enabled)
+            if CFG.DEPLOY_MODE == "manual" and review_callback:
+                notify("  ⏸️ Manual Review enabled. Waiting for user approval...")
+                approved = review_callback(video)
+                if not approved:
+                    notify(f"[{index}/{total}] ⏭️ User skipped/aborted deployment for {video.id}.")
+                    return False
+                notify(f"  📝 Edited Title: {video.new_title}")
+
+            # 6. Update YouTube
             notify("  ✅ Updating YouTube metadata...")
             get_youtube_client().update_video(video)
             
-            # 6. Mark Done
+            # 7. Mark Done
             progress.mark_done(video.id)
             notify(f"[{index}/{total}] ✅  {video.id} fully updated.")
             return True

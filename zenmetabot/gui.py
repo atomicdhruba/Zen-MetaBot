@@ -69,6 +69,11 @@ class ZenMetaBotApp(ctk.CTk):
         ctk.CTkRadioButton(frame, text="Smart Meta (Use existing Brain)", variable=self.rewatch_var, value=False).pack(anchor="w", pady=5)
         ctk.CTkRadioButton(frame, text="Force Rewatch (Extract new Brain)", variable=self.rewatch_var, value=True).pack(anchor="w", pady=5)
 
+        ctk.CTkLabel(frame, text="Deploy Mode", font=("Arial", 16, "bold")).pack(anchor="w", pady=(20,5))
+        self.deploy_var = ctk.StringVar(value=CFG.DEPLOY_MODE)
+        ctk.CTkRadioButton(frame, text="Auto Generate & Deploy", variable=self.deploy_var, value="auto").pack(anchor="w", pady=5)
+        ctk.CTkRadioButton(frame, text="Recheck & Edit before Deploy", variable=self.deploy_var, value="manual").pack(anchor="w", pady=5)
+
         ctk.CTkButton(frame, text="💾 Save to .env", command=self.save_settings, fg_color="green").pack(anchor="w", pady=30)
 
     def save_settings(self):
@@ -91,6 +96,7 @@ class ZenMetaBotApp(ctk.CTk):
         content = update_or_add("GENERATION_MODE", self.mode_var.get(), content)
         content = update_or_add("VIDEO_TYPE_FILTER", self.filter_var.get(), content)
         content = update_or_add("FORCE_REWATCH", str(self.rewatch_var.get()).lower(), content)
+        content = update_or_add("DEPLOY_MODE", self.deploy_var.get(), content)
 
         env_path.write_text(content)
         
@@ -99,6 +105,7 @@ class ZenMetaBotApp(ctk.CTk):
         CFG.GENERATION_MODE = self.mode_var.get()
         CFG.VIDEO_TYPE_FILTER = self.filter_var.get()
         CFG.FORCE_REWATCH = self.rewatch_var.get()
+        CFG.DEPLOY_MODE = self.deploy_var.get()
         
         self.log_debate("Settings saved successfully!")
 
@@ -254,7 +261,7 @@ class ZenMetaBotApp(ctk.CTk):
                 
             self.prog_bar.set(i / total)
             
-            ok = process_single_video(v, i, total, skip_done=CFG.SKIP_DONE, gui_callback=self.log_debate)
+            ok = process_single_video(v, i, total, skip_done=CFG.SKIP_DONE, gui_callback=self.log_debate, review_callback=self.manual_review_callback)
             if ok:
                 success_count += 1
                 
@@ -275,6 +282,55 @@ class ZenMetaBotApp(ctk.CTk):
         self.btn_start.configure(state="normal")
         self.btn_stop.configure(state="disabled")
         self.lbl_status.configure(text=f"Status: Finished. ({success_count}/{total} successful)")
+
+    def manual_review_callback(self, video_meta):
+        # Called from background thread
+        event = threading.Event()
+        result = {"approved": False}
+        self.after(0, self.show_review_dialog, video_meta, event, result)
+        event.wait()
+        return result["approved"]
+
+    def show_review_dialog(self, video_meta, event, result):
+        dialog = ctk.CTkToplevel(self)
+        dialog.title(f"Review Metadata: {video_meta.id}")
+        dialog.geometry("800x600")
+        dialog.grab_set() 
+        dialog.attributes("-topmost", True)
+        
+        ctk.CTkLabel(dialog, text="Title (Max 100 chars):", font=("Arial", 14, "bold")).pack(anchor="w", padx=20, pady=(20, 5))
+        title_var = ctk.StringVar(value=video_meta.new_title)
+        ctk.CTkEntry(dialog, textvariable=title_var, width=760).pack(padx=20)
+        
+        ctk.CTkLabel(dialog, text="Description:", font=("Arial", 14, "bold")).pack(anchor="w", padx=20, pady=(20, 5))
+        desc_box = ctk.CTkTextbox(dialog, width=760, height=250)
+        desc_box.pack(padx=20)
+        desc_box.insert("1.0", video_meta.new_desc)
+        
+        ctk.CTkLabel(dialog, text="Tags (comma separated):", font=("Arial", 14, "bold")).pack(anchor="w", padx=20, pady=(20, 5))
+        tags_var = ctk.StringVar(value=", ".join(video_meta.new_tags))
+        ctk.CTkEntry(dialog, textvariable=tags_var, width=760).pack(padx=20)
+        
+        def on_approve():
+            video_meta.new_title = title_var.get()
+            video_meta.new_desc = desc_box.get("1.0", "end-1c")
+            video_meta.new_tags = [t.strip() for t in tags_var.get().split(",") if t.strip()]
+            result["approved"] = True
+            event.set()
+            dialog.destroy()
+            
+        def on_skip():
+            result["approved"] = False
+            event.set()
+            dialog.destroy()
+
+        dialog.protocol("WM_DELETE_WINDOW", on_skip)
+        
+        btn_frame = ctk.CTkFrame(dialog, fg_color="transparent")
+        btn_frame.pack(fill="x", padx=20, pady=30)
+        
+        ctk.CTkButton(btn_frame, text="✅ Approve & Deploy", command=on_approve, fg_color="green", width=200).pack(side="left", padx=10)
+        ctk.CTkButton(btn_frame, text="⏭️ Skip / Cancel", command=on_skip, fg_color="red", width=200).pack(side="right", padx=10)
 
 def launch_gui():
     app = ZenMetaBotApp()
