@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zen MetaBot - AI YouTube SEO Engine</title>
+    <meta name="description" content="Zen MetaBot is a high-performance desktop app that uses Gemini 1.5 Pro and NVIDIA Nemotron to generate perfect SEO metadata for YouTube videos.">
+    
+    <!-- Google Fonts: Outfit for headers, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- Abstract Background Elements -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <nav class="navbar glass">
+        <div class="logo">Zen <span>MetaBot</span></div>
+        <div class="nav-links">
+            <a href="https://github.com/atomicdhruba/Zen-MetaBot" target="_blank" class="btn btn-outline">GitHub</a>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <div class="hero-content">
+            <div class="badge">v1.0.1 Phase 1 Release 🚀</div>
+            <h1 class="glow-text">The Ultimate YouTube<br>SEO <span>Debate Engine</span></h1>
+            <p class="subtitle">
+                Automate your YouTube growth with concurrent LLM analysis. Watch Gemini 1.5 Pro and NVIDIA Nemotron debate context frame-by-frame to synthesize the perfect, algorithm-dominating metadata payload.
+            </p>
+            
+            <div class="cta-group">
+                <a href="https://github.com/atomicdhruba/Zen-MetaBot" target="_blank" class="btn btn-primary">
+                    View on GitHub
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#features" class="btn btn-secondary">Explore Features</a>
+            </div>
+        </div>
+    </main>
+
+    <section id="features" class="features-section">
+        <div class="section-header">
+            <h2>Built for <span class="text-gradient">Performance</span></h2>
+            <p>A completely local, highly optimized desktop client that offloads all heavy processing to asynchronous background threads.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card glass-card">
+                <div class="icon-box">👁️</div>
+                <h3>Vision Extraction</h3>
+                <p>Frame-by-frame multimodal parsing builds a persistent context cache, completely avoiding redundant and expensive API calls.</p>
+            </div>
+            
+            <div class="feature-card glass-card">
+                <div class="icon-box">⚖️</div>
+                <h3>Debate Pipeline</h3>
+                <p>Multi-agent drafting where distinct LLMs generate competing metadata, followed by strict, uncompromising synthesis evaluation.</p>
+            </div>
+            
+            <div class="feature-card glass-card">
+                <div class="icon-box">🎯</div>
+                <h3>Heuristic Scoring</h3>
+                <p>Built-in SEO grading algorithm evaluates every output for title CTR potential, tag relevance, and algorithmic hook (0-100 scale).</p>
+            </div>
+
+            <div class="feature-card glass-card">
+                <div class="icon-box">⚡</div>
+                <h3>Asynchronous UI</h3>
+                <p>CustomTkinter dark-mode desktop interface running completely decoupled from background API threads for a buttery smooth experience.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="glass">
+        <p>Built by <a href="https://github.com/atomicdhruba" target="_blank">@atomicdhruba</a>. Open source under the MIT License.</p>
+        <div class="footer-links">
+            <a href="https://ko-fi.com/atomicdhruba" target="_blank">Support on Ko-Fi</a>
+            <a href="https://patreon.com/c/AtomicDhruba" target="_blank">Become a Patron</a>
+        </div>
+    </footer>
+
+    <script>
+        // Simple intersection observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.feature-card, .section-header').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
