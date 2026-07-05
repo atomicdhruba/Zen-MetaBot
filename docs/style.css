@@ -458,6 +458,8 @@ body {
 .feature-card:nth-child(2) { transition-delay: 0.3s; }
 .feature-card:nth-child(3) { transition-delay: 0.5s; }
 .feature-card:nth-child(4) { transition-delay: 0.7s; }
+.feature-card:nth-child(5) { transition-delay: 0.9s; }
+.feature-card:nth-child(6) { transition-delay: 1.1s; }
 
 .card-inner {
     transform-style: preserve-3d;
