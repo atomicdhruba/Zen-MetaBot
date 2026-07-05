@@ -25,7 +25,8 @@ def download_video(video_id: str) -> str:
             "youtube": {
                 "player_client": ["android_vr", "tv_embedded", "web"]
             }
-        }
+        },
+        "js_runtimes": {"node": {}}
     }
 
     if has_cookies:
