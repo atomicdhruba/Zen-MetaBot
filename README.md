@@ -1,6 +1,6 @@
 <div align="center">
 
-  <h1>ZenXYT</h1>
+  <h1>Zen MetaBot</h1>
   
   <p>
     <strong>Automated Metadata Optimization Engine for YouTube</strong><br>
@@ -17,7 +17,7 @@
 
 ---
 
-> ZenXYT is a highly optimized, local desktop client designed to automate YouTube metadata generation. The pipeline uses a custom "Debate Engine" architecture where two distinct LLM models evaluate the same video context independently, before a synthesis prompt generates the ultimate metadata payload designed for maximum CTR and algorithmic reach.
+> Zen MetaBot is a highly optimized, local desktop client designed to automate YouTube metadata generation. The pipeline uses a custom "Debate Engine" architecture where two distinct LLM models evaluate the same video context independently, before a synthesis prompt generates the ultimate metadata payload designed for maximum CTR and algorithmic reach.
 
 ## Core Architecture
 
@@ -61,8 +61,8 @@ To run this project locally, provision external API keys for the inference model
 - **API Keys:** You will need keys for YouTube Data API v3, NVIDIA Developer (Nemotron), and Google AI Studio (Gemini).
 
 ```bash
-git clone https://github.com/atomicdhruba/ZenXYT.git
-cd ZenXYT
+git clone https://github.com/atomicdhruba/Zen-Metabot.git
+cd Zen-Metabot
 pip install -r requirements.txt
 cp .env.example .env
 ```
@@ -105,7 +105,7 @@ The provided `.gitignore` explicitly blocks `.env`, `client_secrets.json`, `cook
 
 ## Support the Project
 
-If ZenXYT optimizes your workflow, consider supporting its continued development.
+If Zen MetaBot optimizes your workflow, consider supporting its continued development.
 
 <div align="center">
   <a href="https://ko-fi.com/atomicdhruba"><img src="https://ko-fi.com/img/githubbutton_sm.svg" width="400" alt="Buy Me a Coffee at ko-fi.com" /></a><br>
