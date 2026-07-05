@@ -15,8 +15,7 @@
 </head>
 <body>
     
-    <!-- Interactive Glowing Cursor Background -->
-    <div class="cursor-glow" id="cursor-glow"></div>
+    <!-- Interactive Background -->
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
     <div class="grid-overlay"></div>
@@ -126,15 +125,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     
     <script>
-        // Interactive Background Glow that follows mouse
-        const glow = document.getElementById('cursor-glow');
-        document.addEventListener('mousemove', (e) => {
-            requestAnimationFrame(() => {
-                glow.style.left = e.clientX + 'px';
-                glow.style.top = e.clientY + 'px';
-            });
-        });
-
         // Scroll Reveal Animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
