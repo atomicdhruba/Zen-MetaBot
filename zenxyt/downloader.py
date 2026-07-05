@@ -21,11 +21,16 @@ def download_video(video_id: str) -> str:
         "quiet": True,
         "no_warnings": False,
         "socket_timeout": 60,
+        "extractor_args": {
+            "youtube": {
+                "player_client": ["android_vr", "tv_embedded", "web"]
+            }
+        }
     }
 
     if has_cookies:
         base_opts["cookiefile"] = CFG.COOKIES_FILE
-        log.debug(f"  Using cookies from {CFG.COOKIES_FILE}")
+        log.info(f"  [SUCCESS] Using YouTube cookies from {CFG.COOKIES_FILE}")
     else:
         log.warning("  cookies.txt not found — downloading without auth (may hit rate limits)")
 
