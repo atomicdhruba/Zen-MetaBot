@@ -12,9 +12,9 @@ except ImportError:
 
 @dataclass
 class Config:
-    # ── NVIDIA API ──────────────────────────────────────
+    # ── NVIDIA NIM API ──────────────────────────────────
     NVIDIA_API_KEY: str = os.environ.get("NVIDIA_API_KEY", "")
-    NVIDIA_MODEL: str = os.environ.get("NVIDIA_MODEL", "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning")
+    NVIDIA_MODEL: str = os.environ.get("NVIDIA_MODEL", "nvidia/llama-3.1-nemotron-70b-instruct")
     NVIDIA_MAX_TOKENS: int = int(os.environ.get("NVIDIA_MAX_TOKENS", "4096"))
     NVIDIA_TEMPERATURE: float = float(os.environ.get("NVIDIA_TEMPERATURE", "0.3"))
     NVIDIA_FREQ_PENALTY: float = float(os.environ.get("NVIDIA_FREQ_PENALTY", "0.3"))
