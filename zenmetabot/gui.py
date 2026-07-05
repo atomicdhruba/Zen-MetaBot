@@ -320,8 +320,20 @@ class ZenMetaBotApp(ctk.CTk):
             card = ctk.CTkFrame(self.scroll_frame, fg_color=self.C_CARD, corner_radius=12, border_width=1, border_color="#2A2D3A")
             card.pack(fill="x", padx=10, pady=8)
             
-            def on_enter(e, c=card): c.configure(fg_color="#222530", border_color=self.C_ACCENT)
-            def on_leave(e, c=card): c.configure(fg_color=self.C_CARD, border_color="#2A2D3A")
+            def on_enter(e, c=card):
+                if c.cget("fg_color") != "#222530":
+                    c.configure(fg_color="#222530", border_color=self.C_ACCENT)
+                    
+            def on_leave(e, c=card):
+                try:
+                    x, y = c.winfo_pointerx(), c.winfo_pointery()
+                    cx, cy, cw, ch = c.winfo_rootx(), c.winfo_rooty(), c.winfo_width(), c.winfo_height()
+                    if not (cx <= x <= cx + cw and cy <= y <= cy + ch):
+                        if c.cget("fg_color") != self.C_CARD:
+                            c.configure(fg_color=self.C_CARD, border_color="#2A2D3A")
+                except:
+                    pass
+                    
             card.bind("<Enter>", on_enter)
             card.bind("<Leave>", on_leave)
             
@@ -331,11 +343,15 @@ class ZenMetaBotApp(ctk.CTk):
             cb = ctk.CTkCheckBox(top_row, text="", variable=var, width=30, fg_color=self.C_ACCENT, hover_color=self.C_HOVER)
             cb.pack(side="left", padx=15)
             
-            # Fetch and display thumbnail
-            thumb_img = self.get_thumbnail(v.id)
-            if thumb_img:
-                lbl_img = ctk.CTkLabel(top_row, text="", image=thumb_img)
-                lbl_img.pack(side="left", padx=(0,15), pady=15)
+            # Async Thumbnail loading to prevent UI freeze
+            lbl_img = ctk.CTkLabel(top_row, text="...", width=160, height=90, fg_color="#222530")
+            lbl_img.pack(side="left", padx=(0,15), pady=15)
+            
+            def load_thumb(vid=v.id, lbl=lbl_img):
+                thumb = self.get_thumbnail(vid)
+                if thumb:
+                    self.after(0, lambda: lbl.configure(image=thumb, text="", fg_color="transparent"))
+            threading.Thread(target=load_thumb, daemon=True).start()
                 
             # Details frame
             details = ctk.CTkFrame(top_row, fg_color="transparent")
@@ -365,7 +381,6 @@ class ZenMetaBotApp(ctk.CTk):
                 w.bind("<Enter>", on_enter)
                 w.bind("<Leave>", on_leave)
                 for child in w.winfo_children():
-                    # Checkboxes and buttons have their own hover
                     if not isinstance(child, (ctk.CTkCheckBox, ctk.CTkButton, ctk.CTkTextbox)):
                         bind_hover(child)
             bind_hover(card)
