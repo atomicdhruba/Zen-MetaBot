@@ -13,7 +13,7 @@ Imagine another AI will read your output and needs to understand the video perfe
 Provide your output EXACTLY in this format, with these sections. Be exhaustive and use timestamps (MM:SS) everywhere.
 
 ═══════════════════════════════════════════════
- ZENXYT BRAIN FILE
+ ZEN METABOT BRAIN FILE
 ═══════════════════════════════════════════════
 
 [OVERVIEW]

@@ -3,7 +3,7 @@ title Zen MetaBot Master Bot v2.0
 color 0B
 
 echo ==========================================
-echo       ZENXYT MASTER BOT LAUNCHER
+echo       ZEN METABOT MASTER BOT LAUNCHER
 echo ==========================================
 echo.
 echo Starting Multi-AI Debate Engine (GUI Mode)...

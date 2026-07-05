@@ -14,10 +14,10 @@ from zenmetabot.progress import progress
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
 
-class Zen MetaBotApp(ctk.CTk):
+class ZenMetaBotApp(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("Zen MetaBot Bot v2.0 - Multi-AI Debate Engine")
+        self.title("Zen MetaBot v2.0 - Multi-AI Debate Engine")
         self.geometry("1100x700")
 
         self.videos = []
@@ -266,7 +266,7 @@ class Zen MetaBotApp(ctk.CTk):
         self.lbl_status.configure(text=f"Status: Finished. ({success_count}/{total} successful)")
 
 def launch_gui():
-    app = Zen MetaBotApp()
+    app = ZenMetaBotApp()
     app.mainloop()
 
 if __name__ == "__main__":

@@ -7,7 +7,7 @@ def run_cli():
     from zenmetabot.orchestrator import process_single_video
 
     print(f"\n{'─'*60}")
-    print(f"  Zen MetaBot Bot v2.0  —  CLI Mode")
+    print(f"  Zen MetaBot v2.0  —  CLI Mode")
     print(f"{'─'*60}")
 
     if not CFG.NVIDIA_API_KEY and not CFG.GEMINI_API_KEY:
