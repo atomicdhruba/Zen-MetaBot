@@ -86,27 +86,7 @@ class ZenMetaBotApp(ctk.CTk):
         self.build_debate_tab()
         
         self.show_dashboard()
-        
-        # Spinner Animation
-        self.spinner_frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
-        self.spinner_idx = 0
-        self.animate_spinners()
-
-    def animate_spinners(self):
-        self.spinner_idx = (self.spinner_idx + 1) % len(self.spinner_frames)
-        frame = self.spinner_frames[self.spinner_idx]
-        
-        if hasattr(self, "card_labels"):
-            for v_id, lbl_dict in self.card_labels.items():
-                lbl_info = lbl_dict["info"]
-                text = lbl_info.cget("text")
-                if "Pending" in text:
-                    # The text is "ID: ... • Short • 30s • ⏳ Pending"
-                    parts = text.rsplit("•", 1)
-                    if len(parts) == 2:
-                        lbl_info.configure(text=f"{parts[0]}•  {frame} Pending")
-        
-        self.after(100, self.animate_spinners)
+        # Removed spinner animation to fix severe flickering and lag
 
     def select_frame_by_name(self, name):
         self.btn_nav_dash.configure(fg_color=("gray75", "gray25") if name == "dash" else "transparent")
@@ -404,7 +384,7 @@ class ZenMetaBotApp(ctk.CTk):
         self.btn_start.configure(state="disabled")
         self.btn_stop.configure(state="normal")
         self.lbl_status.configure(text="Status: Processing...")
-        self.tabview.set("⚔️ Debate Viewer")
+        self.show_debate()
         
         threading.Thread(target=self._process_queue, daemon=True).start()
 
