@@ -60,7 +60,7 @@ class ZenMetaBotApp(ctk.CTk):
                                         font=ctk.CTkFont(size=14, weight="bold"), command=self.show_dashboard)
         self.btn_nav_dash.grid(row=1, column=0, sticky="ew", padx=15, pady=5)
         
-        self.btn_nav_debate = ctk.CTkButton(self.sidebar_frame, corner_radius=8, height=40, border_spacing=10, text="⚔️ Debate Viewer",
+        self.btn_nav_debate = ctk.CTkButton(self.sidebar_frame, corner_radius=8, height=40, border_spacing=10, text="⚙️ AI Processing Logs",
                                         fg_color="transparent", text_color="gray90", hover_color="#2A2D3A", anchor="w",
                                         font=ctk.CTkFont(size=14, weight="bold"), command=self.show_debate)
         self.btn_nav_debate.grid(row=2, column=0, sticky="ew", padx=15, pady=5)
@@ -205,9 +205,9 @@ class ZenMetaBotApp(ctk.CTk):
         ctk.CTkButton(top_bar, text="🔄 Fetch Videos", command=self.fetch_videos_thread, font=ctk.CTkFont(weight="bold"), fg_color="#2A2D3A", hover_color="#3A3D4A").pack(side="left", padx=(0, 10))
         self.btn_select_all = ctk.CTkButton(top_bar, text="☑ Select All", command=self.toggle_select_all, state="disabled", fg_color="gray", width=100)
         self.btn_select_all.pack(side="left", padx=10)
-        self.btn_start = ctk.CTkButton(top_bar, text="▶ Start Processing", command=self.start_processing, fg_color=self.C_GREEN, hover_color="#00C853", text_color="black", font=ctk.CTkFont(weight="bold"), state="disabled")
+        self.btn_start = ctk.CTkButton(top_bar, text="▶ Start Processing", command=self.start_processing, fg_color=self.C_GREEN, hover_color="#00C853", text_color="black", text_color_disabled="gray30", font=ctk.CTkFont(weight="bold"), state="disabled")
         self.btn_start.pack(side="left", padx=10)
-        self.btn_stop = ctk.CTkButton(top_bar, text="⏹ Stop", command=self.stop_processing, fg_color=self.C_RED, hover_color="#D50000", font=ctk.CTkFont(weight="bold"), state="disabled")
+        self.btn_stop = ctk.CTkButton(top_bar, text="⏹ Stop", command=self.stop_processing, fg_color=self.C_RED, hover_color="#D50000", text_color="white", text_color_disabled="gray90", font=ctk.CTkFont(weight="bold"), state="disabled")
         self.btn_stop.pack(side="left", padx=10)
         
         # Fake press effect helper
