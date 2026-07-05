@@ -6,40 +6,66 @@
     <title>Zen MetaBot - AI YouTube SEO Engine</title>
     <meta name="description" content="Zen MetaBot is a high-performance desktop app that uses Gemini 1.5 Pro and NVIDIA Nemotron to generate perfect SEO metadata for YouTube videos.">
     
-    <!-- Google Fonts: Outfit for headers, Inter for body -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     
-    <!-- Abstract Background Elements -->
+    <!-- Interactive Glowing Cursor Background -->
+    <div class="cursor-glow" id="cursor-glow"></div>
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
+    <div class="grid-overlay"></div>
 
     <nav class="navbar glass">
-        <div class="logo">Zen <span>MetaBot</span></div>
+        <div class="logo">Zen <span class="text-gradient">MetaBot</span></div>
         <div class="nav-links">
-            <a href="https://github.com/atomicdhruba/Zen-MetaBot" target="_blank" class="btn btn-outline">GitHub</a>
+            <a href="https://github.com/atomicdhruba/Zen-MetaBot" target="_blank" class="btn btn-outline">Star on GitHub</a>
         </div>
     </nav>
 
     <main class="hero">
         <div class="hero-content">
-            <div class="badge">v1.0.1 Phase 1 Release 🚀</div>
-            <h1 class="glow-text">The Ultimate YouTube<br>SEO <span>Debate Engine</span></h1>
+            <div class="badge floating">v1.0.1 Phase 1 Release 🚀</div>
+            <h1 class="glow-text">
+                The Ultimate YouTube<br>
+                <span class="text-gradient 3d-text">SEO Debate Engine</span>
+            </h1>
             <p class="subtitle">
                 Automate your YouTube growth with concurrent LLM analysis. Watch Gemini 1.5 Pro and NVIDIA Nemotron debate context frame-by-frame to synthesize the perfect, algorithm-dominating metadata payload.
             </p>
             
             <div class="cta-group">
-                <a href="https://github.com/atomicdhruba/Zen-MetaBot" target="_blank" class="btn btn-primary">
+                <a href="https://github.com/atomicdhruba/Zen-MetaBot" target="_blank" class="btn btn-primary pulse-btn">
                     View on GitHub
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
                 <a href="#features" class="btn btn-secondary">Explore Features</a>
+            </div>
+        </div>
+        
+        <!-- 3D Floating Dashboard Representation -->
+        <div class="hero-3d-visual" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-perspective="1000">
+            <div class="dashboard-mockup glass-card">
+                <div class="mockup-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="mockup-body">
+                    <div class="mockup-sidebar"></div>
+                    <div class="mockup-main">
+                        <div class="mockup-row skeleton-title"></div>
+                        <div class="mockup-row skeleton-text"></div>
+                        <div class="mockup-row skeleton-text short"></div>
+                        <div class="mockup-box text-gradient">Initializing Gemini 1.5 Pro...</div>
+                        <div class="mockup-box text-gradient">Initializing NVIDIA Nemotron...</div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -51,42 +77,65 @@
         </div>
 
         <div class="features-grid">
-            <div class="feature-card glass-card">
-                <div class="icon-box">👁️</div>
-                <h3>Vision Extraction</h3>
-                <p>Frame-by-frame multimodal parsing builds a persistent context cache, completely avoiding redundant and expensive API calls.</p>
+            <!-- Feature 1 -->
+            <div class="feature-card glass-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
+                <div class="card-inner">
+                    <div class="icon-box" style="transform: translateZ(50px);">👁️</div>
+                    <h3 style="transform: translateZ(30px);">Vision Extraction</h3>
+                    <p style="transform: translateZ(20px);">Frame-by-frame multimodal parsing builds a persistent context cache, completely avoiding redundant and expensive API calls.</p>
+                </div>
             </div>
             
-            <div class="feature-card glass-card">
-                <div class="icon-box">⚖️</div>
-                <h3>Debate Pipeline</h3>
-                <p>Multi-agent drafting where distinct LLMs generate competing metadata, followed by strict, uncompromising synthesis evaluation.</p>
+            <!-- Feature 2 -->
+            <div class="feature-card glass-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
+                <div class="card-inner">
+                    <div class="icon-box" style="transform: translateZ(50px);">⚖️</div>
+                    <h3 style="transform: translateZ(30px);">Debate Pipeline</h3>
+                    <p style="transform: translateZ(20px);">Multi-agent drafting where distinct LLMs generate competing metadata, followed by strict, uncompromising synthesis evaluation.</p>
+                </div>
             </div>
             
-            <div class="feature-card glass-card">
-                <div class="icon-box">🎯</div>
-                <h3>Heuristic Scoring</h3>
-                <p>Built-in SEO grading algorithm evaluates every output for title CTR potential, tag relevance, and algorithmic hook (0-100 scale).</p>
+            <!-- Feature 3 -->
+            <div class="feature-card glass-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
+                <div class="card-inner">
+                    <div class="icon-box" style="transform: translateZ(50px);">🎯</div>
+                    <h3 style="transform: translateZ(30px);">Heuristic Scoring</h3>
+                    <p style="transform: translateZ(20px);">Built-in SEO grading algorithm evaluates every output for title CTR potential, tag relevance, and algorithmic hook (0-100 scale).</p>
+                </div>
             </div>
 
-            <div class="feature-card glass-card">
-                <div class="icon-box">⚡</div>
-                <h3>Asynchronous UI</h3>
-                <p>CustomTkinter dark-mode desktop interface running completely decoupled from background API threads for a buttery smooth experience.</p>
+            <!-- Feature 4 -->
+            <div class="feature-card glass-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
+                <div class="card-inner">
+                    <div class="icon-box" style="transform: translateZ(50px);">⚡</div>
+                    <h3 style="transform: translateZ(30px);">Asynchronous UI</h3>
+                    <p style="transform: translateZ(20px);">CustomTkinter dark-mode desktop interface running completely decoupled from background API threads for a buttery smooth experience.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <footer class="glass">
-        <p>Built by <a href="https://github.com/atomicdhruba" target="_blank">@atomicdhruba</a>. Open source under the MIT License.</p>
+        <p>Built by <a href="https://github.com/atomicdhruba" target="_blank" class="text-gradient">@atomicdhruba</a>. Open source under the MIT License.</p>
         <div class="footer-links">
-            <a href="https://ko-fi.com/atomicdhruba" target="_blank">Support on Ko-Fi</a>
-            <a href="https://patreon.com/c/AtomicDhruba" target="_blank">Become a Patron</a>
+            <a href="https://ko-fi.com/atomicdhruba" target="_blank" class="btn btn-outline" style="padding: 5px 15px; font-size: 0.8rem;">Support on Ko-Fi</a>
         </div>
     </footer>
 
+    <!-- Vanilla Tilt JS for 3D Interactions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    
     <script>
-        // Simple intersection observer for scroll animations
+        // Interactive Background Glow that follows mouse
+        const glow = document.getElementById('cursor-glow');
+        document.addEventListener('mousemove', (e) => {
+            requestAnimationFrame(() => {
+                glow.style.left = e.clientX + 'px';
+                glow.style.top = e.clientY + 'px';
+            });
+        });
+
+        // Scroll Reveal Animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -95,7 +144,7 @@
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.feature-card, .section-header').forEach((el) => {
+        document.querySelectorAll('.feature-card, .section-header, .hero-3d-visual').forEach((el) => {
             observer.observe(el);
         });
     </script>
